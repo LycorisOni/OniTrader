@@ -1,2 +1,2 @@
 # OniTrader
-A trader for tarkov that replaces flea making every item count and valuables all the more important to gather
+A trader for tarkov that replaces flea making every item count and valuables all the more important to gather. This means the flea is disabled! In exchange you will be able to sell valuables to this trader at a better rate than any other trader and buy gear and weapons early than usual as well as barter using valuables to gear even earlier than you naturally would through other traders. This is currently in alpha state so there are no quests atm. In the future this trader will provide quests to earn your path to higher loyalty levels besides only rouble maxing.
