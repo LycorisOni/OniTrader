@@ -1,0 +1,452 @@
+[
+  {
+    "ZoneId": "Delivery_bitcoin",
+    "ZoneName": "Delivery_bitcoin",
+    "ZoneLocation": "factory4_day",
+    "ZoneType": "placeitem",
+    "FlareType": "",
+    "Position": {
+      "X": "-5.650885",
+      "Y": "4.844134",
+      "Z": "-32.20514",
+      "W": "0"
+    },
+    "Rotation": {
+      "X": "0",
+      "Y": "0",
+      "Z": "0",
+      "W": "1"
+    },
+    "Scale": {
+      "X": "1",
+      "Y": "1",
+      "Z": "1",
+      "W": "0"
+    }
+  },
+  {
+    "ZoneId": "TankBattery",
+    "ZoneName": "TankBattery",
+    "ZoneLocation": "RezervBase",
+    "ZoneType": "placeitem",
+    "FlareType": "",
+    "Position": {
+      "X": "-129.6106",
+      "Y": "-4.028224",
+      "Z": "25.81638",
+      "W": "0"
+    },
+    "Rotation": {
+      "X": "0",
+      "Y": "0",
+      "Z": "0",
+      "W": "1"
+    },
+    "Scale": {
+      "X": "1.2",
+      "Y": "1.2",
+      "Z": "1.2",
+      "W": "0"
+    }
+  },
+  {
+    "ZoneId": "Dorms3rd",
+    "ZoneName": "Dorms3rd",
+    "ZoneLocation": "bigmap",
+    "ZoneType": "botkillzone",
+    "FlareType": "",
+    "Position": {
+      "X": "177.5507",
+      "Y": "5.897829",
+      "Z": "170.0018",
+      "W": "0"
+    },
+    "Rotation": {
+      "X": "0",
+      "Y": "0",
+      "Z": "0",
+      "W": "1"
+    },
+    "Scale": {
+      "X": "44.25",
+      "Y": "-1",
+      "Z": "52.75",
+      "W": "0"
+    }
+  },
+  {
+    "ZoneId": "TrailerPark",
+    "ZoneName": "TrailerPark",
+    "ZoneLocation": "bigmap",
+    "ZoneType": "botkillzone",
+    "FlareType": "",
+    "Position": {
+      "X": "-198.2881",
+      "Y": "1.238174",
+      "Z": "-220.5189",
+      "W": "0"
+    },
+    "Rotation": {
+      "X": "0",
+      "Y": "0",
+      "Z": "0",
+      "W": "1"
+    },
+    "Scale": {
+      "X": "90",
+      "Y": "1",
+      "Z": "39",
+      "W": "0"
+    }
+  },
+  {
+    "ZoneId": "ClientDoor",
+    "ZoneName": "ClientDoor",
+    "ZoneLocation": "Interchange",
+    "ZoneType": "visit",
+    "FlareType": "",
+    "Position": {
+      "X": "-53.31222",
+      "Y": "21.38378",
+      "Z": "48.25067",
+      "W": "0"
+    },
+    "Rotation": {
+      "X": "0",
+      "Y": "0",
+      "Z": "0",
+      "W": "1"
+    },
+    "Scale": {
+      "X": "3",
+      "Y": "1",
+      "Z": "7",
+      "W": "0"
+    }
+  },
+  {
+    "ZoneId": "ClientPlace",
+    "ZoneName": "ClientPlace",
+    "ZoneLocation": "Interchange",
+    "ZoneType": "placeitem",
+    "FlareType": "",
+    "Position": {
+      "X": "-54.31222",
+      "Y": "21.38378",
+      "Z": "47.25067",
+      "W": "0"
+    },
+    "Rotation": {
+      "X": "0",
+      "Y": "0",
+      "Z": "0",
+      "W": "1"
+    },
+    "Scale": {
+      "X": "1.5",
+      "Y": "1",
+      "Z": "1.5",
+      "W": "0"
+    }
+  },
+  {
+    "ZoneId": "ResortCull",
+    "ZoneName": "ResortCull",
+    "ZoneLocation": "Shoreline",
+    "ZoneType": "botkillzone",
+    "FlareType": "",
+    "Position": {
+      "X": "-251.9819",
+      "Y": "0.8716736",
+      "Z": "-110.8877",
+      "W": "0"
+    },
+    "Rotation": {
+      "X": "0",
+      "Y": "0",
+      "Z": "0",
+      "W": "1"
+    },
+    "Scale": {
+      "X": "251",
+      "Y": "14",
+      "Z": "141",
+      "W": "0"
+    }
+  },
+  {
+    "ZoneId": "TaigaStreets",
+    "ZoneName": "TaigaStreets",
+    "ZoneLocation": "TarkovStreets",
+    "ZoneType": "placeitem",
+    "FlareType": "",
+    "Position": {
+      "X": "278.8712",
+      "Y": "3.350001",
+      "Z": "369.1076",
+      "W": "0"
+    },
+    "Rotation": {
+      "X": "0",
+      "Y": "0",
+      "Z": "0",
+      "W": "1"
+    },
+    "Scale": {
+      "X": "2",
+      "Y": "1",
+      "Z": "2.25",
+      "W": "0"
+    }
+  },
+  {
+    "ZoneId": "TaigaMall",
+    "ZoneName": "TaigaMall",
+    "ZoneLocation": "Interchange",
+    "ZoneType": "placeitem",
+    "FlareType": "",
+    "Position": {
+      "X": "452.0811",
+      "Y": "17.3694",
+      "Z": "-371.3869",
+      "W": "0"
+    },
+    "Rotation": {
+      "X": "0",
+      "Y": "0",
+      "Z": "0.01527104",
+      "W": "0.9998834"
+    },
+    "Scale": {
+      "X": "2",
+      "Y": "1",
+      "Z": "2.25",
+      "W": "0"
+    }
+  },
+  {
+    "ZoneId": "TaigaCustoms",
+    "ZoneName": "TaigaCustoms",
+    "ZoneLocation": "bigmap",
+    "ZoneType": "placeitem",
+    "FlareType": "",
+    "Position": {
+      "X": "224.1832",
+      "Y": "2.949363",
+      "Z": "143.0456",
+      "W": "0"
+    },
+    "Rotation": {
+      "X": "0",
+      "Y": "0",
+      "Z": "0",
+      "W": "1"
+    },
+    "Scale": {
+      "X": "1.5",
+      "Y": "1",
+      "Z": "1",
+      "W": "0"
+    }
+  },
+  {
+    "ZoneId": "Streetsring",
+    "ZoneName": "Streetsring",
+    "ZoneLocation": "TarkovStreets",
+    "ZoneType": "placeitem",
+    "FlareType": "",
+    "Position": {
+      "X": "119.1773",
+      "Y": "3.59153",
+      "Z": "224.0194",
+      "W": "0"
+    },
+    "Rotation": {
+      "X": "0",
+      "Y": "0",
+      "Z": "0",
+      "W": "1"
+    },
+    "Scale": {
+      "X": "1.5",
+      "Y": "0.75",
+      "Z": "1",
+      "W": "0"
+    }
+  },
+  {
+    "ZoneId": "interchangering",
+    "ZoneName": "interchangering",
+    "ZoneLocation": "Interchange",
+    "ZoneType": "placeitem",
+    "FlareType": "",
+    "Position": {
+      "X": "-49.42466",
+      "Y": "21.38461",
+      "Z": "44.87337",
+      "W": "0"
+    },
+    "Rotation": {
+      "X": "0",
+      "Y": "0",
+      "Z": "0",
+      "W": "1"
+    },
+    "Scale": {
+      "X": "1.25",
+      "Y": "1",
+      "Z": "0.5",
+      "W": "0"
+    }
+  },
+  {
+    "ZoneId": "Customsring",
+    "ZoneName": "Customsring",
+    "ZoneLocation": "bigmap",
+    "ZoneType": "placeitem",
+    "FlareType": "",
+    "Position": {
+      "X": "195.0053",
+      "Y": "0.7954743",
+      "Z": "183.3418",
+      "W": "0"
+    },
+    "Rotation": {
+      "X": "0",
+      "Y": "0",
+      "Z": "0",
+      "W": "1"
+    },
+    "Scale": {
+      "X": "0.75",
+      "Y": "0.25",
+      "Z": "0.5",
+      "W": "0"
+    }
+  },
+  {
+    "ZoneId": "woodsring",
+    "ZoneName": "woodsring",
+    "ZoneLocation": "Woods",
+    "ZoneType": "placeitem",
+    "FlareType": "",
+    "Position": {
+      "X": "444.8859",
+      "Y": "-13.44204",
+      "Z": "67.48953",
+      "W": "0"
+    },
+    "Rotation": {
+      "X": "0",
+      "Y": "0",
+      "Z": "0",
+      "W": "1"
+    },
+    "Scale": {
+      "X": "0.45",
+      "Y": "1.5",
+      "Z": "0.45",
+      "W": "0"
+    }
+  },
+  {
+    "ZoneId": "reservering",
+    "ZoneName": "reservering",
+    "ZoneLocation": "RezervBase",
+    "ZoneType": "placeitem",
+    "FlareType": "",
+    "Position": {
+      "X": "22.2512",
+      "Y": "-6.74612",
+      "Z": "35.20928",
+      "W": "0"
+    },
+    "Rotation": {
+      "X": "0",
+      "Y": "0",
+      "Z": "0",
+      "W": "1"
+    },
+    "Scale": {
+      "X": "0.8",
+      "Y": "1",
+      "Z": "0.6999999",
+      "W": "0"
+    }
+  },
+  {
+    "ZoneId": "lighthousering",
+    "ZoneName": "lighthousering",
+    "ZoneLocation": "Lighthouse",
+    "ZoneType": "placeitem",
+    "FlareType": "",
+    "Position": {
+      "X": "-78.87172",
+      "Y": "21.94144",
+      "Z": "-84.32995",
+      "W": "0"
+    },
+    "Rotation": {
+      "X": "0",
+      "Y": "0",
+      "Z": "0",
+      "W": "1"
+    },
+    "Scale": {
+      "X": "1",
+      "Y": "1.5",
+      "Z": "1",
+      "W": "0"
+    }
+  },
+  {
+    "ZoneId": "shorelinering",
+    "ZoneName": "shorelinering",
+    "ZoneLocation": "Shoreline",
+    "ZoneType": "placeitem",
+    "FlareType": "",
+    "Position": {
+      "X": "-307.612",
+      "Y": "-3.484837",
+      "Z": "-75.86868",
+      "W": "0"
+    },
+    "Rotation": {
+      "X": "0",
+      "Y": "0",
+      "Z": "0",
+      "W": "1"
+    },
+    "Scale": {
+      "X": "1.75",
+      "Y": "1.25",
+      "Z": "1.25",
+      "W": "0"
+    }
+  },
+  {
+    "ZoneId": "labsring",
+    "ZoneName": "labsring",
+    "ZoneLocation": "laboratory",
+    "ZoneType": "placeitem",
+    "FlareType": "",
+    "Position": {
+      "X": "-94.01367",
+      "Y": "0.1188793",
+      "Z": "-432.7215",
+      "W": "0"
+    },
+    "Rotation": {
+      "X": "-0.002748978",
+      "Y": "0.3987396",
+      "Z": "-0.006322216",
+      "W": "0.9170383"
+    },
+    "Scale": {
+      "X": "1.5",
+      "Y": "1.75",
+      "Z": "1.5",
+      "W": "0"
+    }
+  }
+]
