@@ -1,6 +1,6 @@
 {
     "name": "Oni",
-    "version": "0.7.0",
+    "version": "0.7.1",
     "sptVersion": "~3.11",
     "loadBefore": [],
     "loadAfter": [],
@@ -27,4 +27,5 @@
     "author": "LycorisOni",
     "contributors": [],
     "license": "MIT"
+
 }
