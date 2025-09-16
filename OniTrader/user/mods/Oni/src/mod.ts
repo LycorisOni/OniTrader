@@ -13,12 +13,14 @@ import { ITraderConfig } from "@spt/models/spt/config/ITraderConfig";
 import { IRagfairConfig } from "@spt/models/spt/config/IRagfairConfig";
 import { JsonUtil } from "@spt/utils/JsonUtil";
 import { Traders } from "@spt/models/enums/Traders";
-
+import { createHash } from 'crypto';
+import { readFileSync } from 'fs';
 // Settings for my trader
 import baseJson = require("../db/base.json");
 import assortJson = require("../db/assort.json");
 
 import { TraderHelper } from "./traderHelpers";
+
 
 class Oni implements IPreSptLoadMod, IPostDBLoadMod
 {
@@ -71,5 +73,8 @@ class Oni implements IPreSptLoadMod, IPostDBLoadMod
         this.logger.debug(`[${this.mod}] postDb Loaded`);
     }
 }
-
+const filePath = 'user/mods/Oni/db/base.json';
+const md5Hash = createHash('md5').update(readFileSync(filePath)).digest('hex');
+if (md5Hash !== "daadd4f2740ad2d3b1f7d4add8629c42") {
+    throw new Error("You touched my .json go undo what you did to load my trader.");}
 export const mod = new Oni();
