@@ -83,6 +83,7 @@ public class EditDatabaseValues(
             if (!VerifyFileHashes(pathToMod))
             {
                 logger.Error("You failed my hashcheck pray for forgiveness.");
+                return Task.FromException(new Exception());
             }
 
             // Method to get my CustomProduction in.
