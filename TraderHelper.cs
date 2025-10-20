@@ -1,4 +1,4 @@
-﻿using SPTarkov.DI.Annotations;
+using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.DI;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
@@ -7,7 +7,7 @@ using SPTarkov.Server.Core.Models.Utils;
 using SPTarkov.Server.Core.Services;
 using SPTarkov.Server.Core.Utils.Cloners;
 
-namespace _13AddTraderWithAssortJson
+namespace LycorisOni.Trader
 {
     /// <summary>
     /// We inject this class into 'AddTraderWithDynamicAssorts' to help us with adding the new trader into the server
@@ -54,7 +54,7 @@ namespace _13AddTraderWithAssortJson
             };
 
             // Create trader data ready to add to database
-            var traderDataToAdd = new Trader
+            var traderDataToAdd = new SPTarkov.Server.Core.Models.Eft.Common.Tables.Trader
             {
                 Assort = emptyTraderItemAssortObject,
                 Base = cloner.Clone(traderDetailsToAdd),
