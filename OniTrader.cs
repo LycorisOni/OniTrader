@@ -209,21 +209,21 @@ public class EditDatabaseValues(
         {
             var filesToCheck = new List<FileCheckerData>();
 
-            var file1 = new FileCheckerData
+            var AssortFileChecksum = new FileCheckerData
             {
                 RelativePath = "data/assort.json",
                 ExpectedHash = "b7ad2b4bf069fe9041fa6424d2aaa432",
                 Name = "assort.json"
             };
-            filesToCheck.Add(file1);
+            filesToCheck.Add(AssortFileChecksum);
 
-            var file2 = new FileCheckerData
+            var BaseFileChecksum = new FileCheckerData
             {
                 RelativePath = "data/base.json",
                 ExpectedHash = "520f5c5170ee5eb6489ec1d5f75c8371",
                 Name = "base.json"
             };
-            filesToCheck.Add(file2);
+            filesToCheck.Add(BaseFileChecksum);
 
             var failedFiles = new List<string>();
 
