@@ -16,7 +16,7 @@ using Path = System.IO.Path;
 
 namespace LycorisOni.Trader;
 
-// My package.json lol
+// My package.json heheheh
 public record ModMetadata : AbstractModMetadata
 {
     public override string ModGuid { get; init; } = "com.lycorisoni.onitrader";
@@ -31,6 +31,13 @@ public record ModMetadata : AbstractModMetadata
     public override bool? IsBundleMod { get; init; } = false;
     public override string? License { get; init; } = "MIT";
 }
+
+public record FileCheckerData
+{
+    public required string RelativePath { get; set; }
+    public required string ExpectedHash { get; set; }
+    public required string Name { get; set; }
+}
     
 [Injectable(TypePriority = OnLoadOrder.PostDBModLoader + 1)]
 public class EditDatabaseValues(
@@ -42,19 +49,24 @@ public class EditDatabaseValues(
     {
         // Allows my flea adjustment
         EditGlobals();
-        // Inform server we have finished
+        // Cutesy first message
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.WriteLine("🌸 Removed the Flea Hooray! 🌸");
+        Console.ResetColor();
+
+        // Finished up
         return Task.CompletedTask;
     }
 
     private void EditGlobals()
     {
-        // Let's edit settings in the GLOBALS file (database/globals.json)
+        // Let's me set up my flea level
         var globals = databaseService.GetGlobals();
 
-        // Now lets try editing the ragfair unlock level, lets get the ragfair settings first
+        // Is grabbing flea level
         var ragfairSettings = globals.Configuration.RagFair;
 
-        // Lets set the level you need to be to access flea to be 1
+        // Sets my flea level.
         ragfairSettings.MinUserLevel = 93;
     }
 
@@ -76,26 +88,26 @@ public class EditDatabaseValues(
 
         public Task OnLoad()
         {
-            // Grabs the path to my mod to get my class functional
+            // Yoinks my paths to make shit functional
             var pathToMod = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
 
-            // Special file check sum to insure no dirty .json tampering has happened.
+            // Critical check.
             if (!VerifyFileHashes(pathToMod))
             {
-                logger.Error("You failed my hashcheck pray for forgiveness.");
+                logger.Error("You failed my hashfile check. Pray for forgiveness.");
                 return Task.FromException(new Exception());
             }
 
-            // Method to get my CustomProduction in.
-            ProductionLoader(pathToMod);
+            // Load custom production recipes
+            LoadCustomProduction(pathToMod);
 
             // A relative path to the trader icon to show
             var traderImagePath = Path.Combine(pathToMod, "data/oni.jpg");
 
-            // Yeets my base.json data in
+            // My Base.json loader.
             var traderBase = modHelper.GetJsonDataFromFile<TraderBase>(pathToMod, "data/base.json");
 
-            // Dark sorcery to set up a helper class and get it setting up my image for Oni along with the stock refresh timer
+            // Wizard magic. but it just sets my trader image and my restock timer.
             imageRouter.AddRoute(traderBase.Avatar.Replace(".jpg", ""), traderImagePath);
             traderHelper.SetTraderUpdateTime(_traderConfig, traderBase, timeUtil.GetHoursAsSeconds(1),
                 timeUtil.GetHoursAsSeconds(2));
@@ -104,60 +116,114 @@ public class EditDatabaseValues(
 
             traderHelper.AddTraderWithEmptyAssortToDb(traderBase);
 
-            // Add localisation text for my trader to the database so it shows to people playing in different languages
+            // Localization fail back.
             traderHelper.AddTraderToLocales(traderBase, "Oni", "This is my shop.");
 
-            // Yeets my assort data in
+            // Get the assort data from JSON
             var assort = modHelper.GetJsonDataFromFile<TraderAssort>(pathToMod, "data/assort.json");
-            // Saves the data of my Trader
+            // Cheeky save.
             traderHelper.OverwriteTraderAssort(traderBase.Id, assort);
 
-            logger.Success("🌸 Loaded OniTrader Successfully! 🌸");
-            // Yeets that log to show mod is gucci
+            // Other cutesy message. Don't yell at me.
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("🌸 Loaded OniTrader Successfully! 🌸");
+            Console.ResetColor();
+            
+            // Good to go once this clears.
             return Task.CompletedTask;
         }
 
-        private void ProductionLoader(string modPath)
+        private void LoadCustomProduction(string modPath)
         {
             try
             {
-                // Yoinks the hideout data so I can yeet my production.json in
-                var hideout = databaseService.GetHideout();
-                //If the install is somehow corrupted sends a message
-                if (hideout.Production.Recipes == null)
+                var productionPath = Path.Combine(modPath, "data/production.json");
+                
+                // Checks for my file.
+                if (!File.Exists(productionPath))
                 {
-                    logger.Error("No hideout productions were found. Failed to load new ones.");
+                    logger.Info("No custom production.json found, skipping production loading.");
                     return;
                 }
 
-                // Loads in my Production.json's Productions like a good little command.
+                logger.Info("Found production.json, attempting to load...");
+
+                // Yoinks the production.json to allow production.json of my own to load.
+                var hideout = databaseService.GetHideout();
+
+                if (hideout == null)
+                {
+                    logger.Error("Hideout is null! Cannot load custom production.");
+                    return;
+                }
+
+                if (hideout.Production == null)
+                {
+                    logger.Error("Hideout.Production is null! Cannot load custom production.");
+                    return;
+                }
+
+                if (hideout.Production.Recipes == null)
+                {
+                    logger.Error("Hideout.Production.Recipes is null! Cannot load custom production.");
+                    return;
+                }
+
+                logger.Info($"Current recipe count: {hideout.Production.Recipes.Count}");
+
+                // Loads my production.json to load.
                 var customProductions = modHelper.GetJsonDataFromFile<List<HideoutProduction>>(modPath, "data/production.json");
 
-                if (customProductions != null && customProductions.Count > 0)
+                if (customProductions == null)
                 {
-                    // Adds in my productions in order. Should..
+                    logger.Warning("customProductions is null after loading file.");
+                    return;
+                }
+
+                logger.Info($"Loaded {customProductions.Count} production(s) from file.");
+
+                if (customProductions.Count > 0)
+                {
+                    // Adds in all my productions I set up.
                     foreach (var production in customProductions)
                     {
                         hideout.Production.Recipes.Add(production);
+                        logger.Info($"Added production: {production.Id}");
                     }
 
-                    logger.Success($"OniTrader productions loaded! {customProductions.Count}");
+                    logger.Success($"Successfully loaded {customProductions.Count} custom production recipe(s)!");
+                }
+                else
+                {
+                    logger.Warning("production.json exists but contains no recipes.");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                logger.Warning($"Found no productions to load.. Did you remove my file???");
+                logger.Error($"Error loading custom production.json: {ex.Message}");
+                logger.Error($"Stack trace: {ex.StackTrace}");
             }
         }
 
         private bool VerifyFileHashes(string modPath)
         {
-            var filesToCheck = new[]
+            var filesToCheck = new List<FileCheckerData>();
+
+            var file1 = new FileCheckerData
             {
-                new { RelativePath = "data/assort.json", ExpectedHash = "b7ad2b4bf069fe9041fa6424d2aaa432", Name = "assort.json" },
-                new { RelativePath = "data/base.json", ExpectedHash = "520f5c5170ee5eb6489ec1d5f75c8371", Name = "base.json" },
-                //new { RelativePath = "data/production.json", ExpectedHash = "", Name = "production.json" }
+                RelativePath = "data/assort.json",
+                ExpectedHash = "b7ad2b4bf069fe9041fa6424d2aaa432",
+                Name = "assort.json"
             };
+            filesToCheck.Add(file1);
+
+            var file2 = new FileCheckerData
+            {
+                RelativePath = "data/base.json",
+                ExpectedHash = "520f5c5170ee5eb6489ec1d5f75c8371",
+                Name = "base.json"
+            };
+            filesToCheck.Add(file2);
 
             var failedFiles = new List<string>();
 
@@ -167,7 +233,7 @@ public class EditDatabaseValues(
                 
                 if (!File.Exists(fullPath))
                 {
-                    logger.Error($"File failed to be loaded? Get the file back in there!: {file.RelativePath}");
+                    logger.Error($"File not found: {file.RelativePath}");
                     failedFiles.Add(file.Name);
                     continue;
                 }
@@ -183,7 +249,7 @@ public class EditDatabaseValues(
                 }
                 catch (Exception ex)
                 {
-                    logger.Error($"Failed to find the correct hash>:( {file.RelativePath}: {ex.Message}");
+                    logger.Error($"Error checking hash for {file.RelativePath}: {ex.Message}");
                     failedFiles.Add(file.Name);
                 }
             }
