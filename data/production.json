@@ -1,0 +1,40 @@
+[
+    {
+        "_id": "68cb79cdd53af1a4579f74b5",
+        "areaType": 10,
+        "requirements": [
+            {
+                "areaType": 10,
+                "requiredLevel": 1,
+                "type": "Area"
+            },
+            {
+                "templateId": "5d6e68dea4b9361bcc29e659",
+                "count": 100,
+                "isFunctional": false,
+                "isEncoded": false,
+                "type": "Item"
+            },
+            {
+                "templateId": "5d6fc87386f77449db3db94e",
+                "count": 2,
+                "isFunctional": false,
+                "isEncoded": false,
+                "type": "Item"
+            },
+            {
+                "questId": "6848c12397eff9442623a5b4",
+                "type": "QuestComplete"
+            }
+        ],
+        "productionTime": 900,
+        "needFuelForAllProductionTime": false,
+        "locked": true,
+        "endProduct": "5d6e6911a4b9361bd5780d52",
+        "continuous": false,
+        "count": 100,
+        "productionLimitCount": 0,
+        "isEncoded": false,
+        "isCodeProduction": false
+    }
+]
