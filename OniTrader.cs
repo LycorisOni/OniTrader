@@ -1,9 +1,8 @@
 using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.DI;
 using SPTarkov.Server.Core.Helpers;
-using SPTarkov.Server.Core.Models.Enums;
-using SPTarkov.Server.Core.Models.Enums.Hideout;
 using SPTarkov.Server.Core.Models.Eft.Common.Tables;
+using SPTarkov.Server.Core.Models.Eft.Hideout;
 using SPTarkov.Server.Core.Models.Spt.Config;
 using SPTarkov.Server.Core.Models.Spt.Mod;
 using SPTarkov.Server.Core.Routers;
@@ -12,15 +11,12 @@ using SPTarkov.Server.Core.Utils;
 using SPTarkov.Server.Core.Models.Utils;
 using SPTarkov.Server.Core.Services;
 using System.Reflection;
-using Path = System.IO.Path;
-using System.Text.Encodings;
-using System.IO;
 using System.Security.Cryptography;
-using SPTarkov.Server.Core.Utils.Cloners;
+using Path = System.IO.Path;
 
-namespace _13AddTraderWithAssortJson;
+namespace LycorisOni.Trader;
 
-// This record holds the various properties for your mod
+// My package.json lol
 public record ModMetadata : AbstractModMetadata
 {
     public override string ModGuid { get; init; } = "com.lycorisoni.onitrader";
@@ -46,13 +42,6 @@ public class EditDatabaseValues(
     {
         // Allows my flea adjustment
         EditGlobals();
-
-        // Future Production Method
-        //EditHideout();
-
-        // lets write a nice log message to the server console so players know our mod has made changes
-        logger.Success("Removed the Flea Hooray!");
-
         // Inform server we have finished
         return Task.CompletedTask;
     }
@@ -75,9 +64,9 @@ public class EditDatabaseValues(
         ModHelper modHelper,
         ImageRouter imageRouter,
         ConfigServer configServer,
+        DatabaseService databaseService,
         TimeUtil timeUtil,
-        TraderHelper
-            traderHelper // This is a custom class we add for this mod, we made it injectable so it can be accessed like other classes here
+        TraderHelper traderHelper
     )
         : IOnLoad
     {
@@ -87,16 +76,26 @@ public class EditDatabaseValues(
 
         public Task OnLoad()
         {
-            // A path to the mods files we use below
+            // Grabs the path to my mod to get my class functional
             var pathToMod = modHelper.GetAbsolutePathToModFolder(Assembly.GetExecutingAssembly());
+
+            // Special file check sum to insure no dirty .json tampering has happened.
+            if (!VerifyFileHashes(pathToMod))
+            {
+                logger.Error("You failed my hashcheck pray for forgiveness.");
+                return Task.FromException(new Exception("Alright which .json did you touch huh? I'll find out."));
+            }
+
+            // Method to get my CustomProduction in.
+            ProductionLoader(pathToMod);
 
             // A relative path to the trader icon to show
             var traderImagePath = Path.Combine(pathToMod, "data/oni.jpg");
 
-            // The base json containing trader settings we will add to the server
+            // Yeets my base.json data in
             var traderBase = modHelper.GetJsonDataFromFile<TraderBase>(pathToMod, "data/base.json");
 
-            // Create a helper class and use it to register our traders image/icon + set its stock refresh time
+            // Dark sorcery to set up a helper class and get it setting up my image for Oni along with the stock refresh timer
             imageRouter.AddRoute(traderBase.Avatar.Replace(".jpg", ""), traderImagePath);
             traderHelper.SetTraderUpdateTime(_traderConfig, traderBase, timeUtil.GetHoursAsSeconds(1),
                 timeUtil.GetHoursAsSeconds(2));
@@ -105,17 +104,106 @@ public class EditDatabaseValues(
 
             traderHelper.AddTraderWithEmptyAssortToDb(traderBase);
 
-            // Add localisation text for our trader to the database so it shows to people playing in different languages
+            // Add localisation text for my trader to the database so it shows to people playing in different languages
             traderHelper.AddTraderToLocales(traderBase, "Oni", "This is my shop.");
 
-            // Get the assort data from JSON
+            // Yeets my assort data in
             var assort = modHelper.GetJsonDataFromFile<TraderAssort>(pathToMod, "data/assort.json");
-            // Save the data we loaded above into the trader we've made
+            // Saves the data of my Trader
             traderHelper.OverwriteTraderAssort(traderBase.Id, assort);
 
-            logger.Success("Loaded my Trader Oni!");
-            // Send back a success to the server to say our trader is good to go
+            logger.Success("🌸 Loaded OniTrader Successfully! 🌸");
+            // Yeets that log to show mod is gucci
             return Task.CompletedTask;
+        }
+
+        private void ProductionLoader(string modPath)
+        {
+            try
+            {
+                // Yoinks the hideout data so I can yeet my production.json in
+                var hideout = databaseService.GetHideout();
+                //If the install is somehow corrupted sends a message
+                if (hideout.Production.Recipes == null)
+                {
+                    logger.Error("No hideout productions were found. Failed to load new ones.");
+                    return;
+                }
+
+                // Loads in my Production.json's Productions like a good little command.
+                var customProductions = modHelper.GetJsonDataFromFile<List<HideoutProduction>>(modPath, "data/production.json");
+
+                if (customProductions != null && customProductions.Count > 0)
+                {
+                    // Adds in my productions in order. Should..
+                    foreach (var production in customProductions)
+                    {
+                        hideout.Production.Recipes.Add(production);
+                    }
+
+                    logger.Success($"OniTrader productions loaded! {customProductions.Count}");
+                }
+            }
+            catch (Exception)
+            {
+                logger.Warning($"Found no productions to load.. Did you remove my file???");
+            }
+        }
+
+        private bool VerifyFileHashes(string modPath)
+        {
+            var filesToCheck = new[]
+            {
+                new { RelativePath = "data/assort.json", ExpectedHash = "b7ad2b4bf069fe9041fa6424d2aaa432", Name = "assort.json" },
+                new { RelativePath = "data/base.json", ExpectedHash = "520f5c5170ee5eb6489ec1d5f75c8371", Name = "base.json" },
+                //new { RelativePath = "data/production.json", ExpectedHash = "", Name = "production.json" }
+            };
+
+            var failedFiles = new List<string>();
+
+            foreach (var file in filesToCheck)
+            {
+                var fullPath = Path.Combine(modPath, file.RelativePath);
+                
+                if (!File.Exists(fullPath))
+                {
+                    logger.Error($"File failed to be loaded? Get the file back in there!: {file.RelativePath}");
+                    failedFiles.Add(file.Name);
+                    continue;
+                }
+
+                try
+                {
+                    var actualHash = ComputeMD5Hash(fullPath);
+                    
+                    if (!actualHash.Equals(file.ExpectedHash, StringComparison.OrdinalIgnoreCase))
+                    {
+                        failedFiles.Add(file.Name);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error($"Failed to find the correct hash>:( {file.RelativePath}: {ex.Message}");
+                    failedFiles.Add(file.Name);
+                }
+            }
+
+            if (failedFiles.Count > 0)
+            {
+                var fileList = failedFiles.Count == 2 ? "both my .jsons" : $"my {failedFiles[0]}";
+                logger.Error($"OniTrader! You messed with {fileList} undo what you did to load my Trader!");
+                return false;
+            }
+
+            return true;
+        }
+
+        private static string ComputeMD5Hash(string filePath)
+        {
+            using var md5 = MD5.Create();
+            using var stream = File.OpenRead(filePath);
+            var hash = md5.ComputeHash(stream);
+            return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
         }
     }
 }
