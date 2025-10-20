@@ -83,7 +83,6 @@ public class EditDatabaseValues(
             if (!VerifyFileHashes(pathToMod))
             {
                 logger.Error("You failed my hashcheck pray for forgiveness.");
-                return Task.FromException(new Exception("Alright which .json did you touch huh? I'll find out."));
             }
 
             // Method to get my CustomProduction in.
