@@ -264,7 +264,7 @@ public class Oni(
 {
     public async Task OnLoad()
     {
-        Assembly assembly = Assembly.GetExecutingAssembly();
+        var assembly = Assembly.GetExecutingAssembly();
         
         // Use WTT-CommonLib services
         await wttCommon.CustomQuestService.CreateCustomQuests(assembly);
