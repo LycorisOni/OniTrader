@@ -188,7 +188,7 @@ public class EditDatabaseValues(
             var assortFileChecksum = new FileCheckerData
             {
                 RelativePath = "data/assort.json",
-                ExpectedHash = "1e9233702f30f9c9682a3f6de617e2f9",
+                ExpectedHash = "420baec58417abea58fbfa0eed6597eb",
                 Name = "assort.json"
             };
             filesToCheck.Add(assortFileChecksum);
@@ -196,7 +196,7 @@ public class EditDatabaseValues(
             var baseFileChecksum = new FileCheckerData
             {
                 RelativePath = "data/base.json",
-                ExpectedHash = "18edb20ddb62bfcb99bef44b0d445341",
+                ExpectedHash = "0a37496616778c50253efb339065ed4f",
                 Name = "base.json"
             };
             filesToCheck.Add(baseFileChecksum);
@@ -204,7 +204,7 @@ public class EditDatabaseValues(
             var productionFileChecksum = new FileCheckerData
             {
                 RelativePath = "data/production.json",
-                ExpectedHash = "adeed155bae0b0b4ef9ddd25f55081e7",
+                ExpectedHash = "5b2a1ab9e4c03d5760308d8fcc4934f7",
                 Name = "production.json"
             };
             filesToCheck.Add(productionFileChecksum);
@@ -268,8 +268,7 @@ public class Oni(
         
         // Use WTT-CommonLib services
         await wttCommon.CustomQuestService.CreateCustomQuests(assembly);
-        await wttCommon.CustomQuestZoneService.CreateCustomQuestZones(assembly, 
-            Path.Join("ZoneData", "QuestZones"));
+        await wttCommon.CustomQuestZoneService.CreateCustomQuestZones(assembly);
         await Task.CompletedTask;
     }
 }
